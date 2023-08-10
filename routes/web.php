@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\PDFController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [HomeController::class, 'index']);
 // Auth::routes();
 Route::group(['middleware' => 'user'], function() {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
@@ -51,7 +50,7 @@ Route::get('/registerAdmin', function () {
 
 
 Route::group(['middleware' => 'admin'], function() {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     // Route::get('/dashboardAdmin', [AdminController::class, 'dashboard']);
     Route::get('/allmenu', [AdminController::class, 'allMenu']);
     Route::get('/editMenu/{id}', [AdminController::class, 'editMenu']);
@@ -59,7 +58,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('/tambahMenu', [AdminController::class, 'tambahMenu']);
     Route::post('/prosesTambah', [AdminController::class, 'prosesTambah']);
 
-    Route::get('/delete/{id}', [AdminController::class, 'hapusMenu']);
+    Route::delete('/delete-menu/{id}', [AdminController::class, 'hapusMenu']);
     Route::get('/pesanan-user', [AdminController::class, 'pesananUser']);
     Route::put('/update-pesanan-user/{id}', [AdminController::class, 'updatePesananUser']);
     Route::get('/manage-paket', [AdminController::class, 'ManagePaket']);
@@ -72,6 +71,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::delete('/delete-pesanan-user/{id}', [AdminController::class, 'deletePesananUser']);
     Route::get('/get-alamat-pengiriman-byID/{id}', [AdminController::class, 'getAlamatPengirimanById']);
 
+    Route::resource('pengiriman', PengirimanController::class);
     // catatan setiap url crud misalnya , kasi /admin
     // Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 });

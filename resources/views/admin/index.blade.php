@@ -37,7 +37,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 {{-- <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div> --}}
@@ -49,7 +49,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -75,6 +75,10 @@
                 <a class="nav-link collapsed" href="/manage-paket">
                     <i class="fas fa-fw fa-envelope"></i>
                     <span>Jenis Langganan</span>
+                </a>
+                <a class="nav-link collapsed" href="/pengiriman">
+                    <i class="fas fa-fw fa-envelope"></i>
+                    <span>Pengiriman</span>
                 </a>
                 <a class="nav-link collapsed" href="/data-user">
                     <i class="fas fa-fw fa-user"></i>
@@ -264,8 +268,8 @@
 
         <!-- Bootstrap core JavaScript-->
         <script src="{{asset('assets/admin/vendor/jquery/jquery.min.js')}}"></script>
-        <script src="{{asset('assets/admin/')}}"></script>
-
+        {{-- <script src="{{asset('assets/admin/')}}"></script> --}}
+        @stack('after-script')
         <!-- Core plugin JavaScript-->
         <script src="{{asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -278,6 +282,7 @@
         <!-- Page level custom scripts -->
         <script src="{{asset('assets/admin/js/demo/chart-area-demo.js')}}"></script>
         <script src="{{asset('assets/admin/js/demo/chart-pie-demo.js')}}"></script>
+        
 
 </body>
 
