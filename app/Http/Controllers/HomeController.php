@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Menu;
+use App\Models\User;
+use App\Models\Pesanan;
+use App\Models\Pengiriman;
+use Illuminate\Http\Request;
 use App\Models\FeedbackModel;
 use App\Models\JenisLangganan;
-use App\Models\Pesanan;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\Menu;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -64,7 +65,7 @@ class HomeController extends Controller
     }
     public function updateProfile(Request $request, $id)
     {
-       
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -77,7 +78,7 @@ class HomeController extends Controller
     }
     public function deletePesananUser($id)
     {
-       
+
         $user = User::find($id);
         $pesanan = Pesanan::where('user_id', $user->id);
         $pesanan->delete();
@@ -157,13 +158,14 @@ class HomeController extends Controller
         $diskonMember = JenisLangganan::find($user->is_member);
 
 
+        // tidak digunakan
         //diskon => 10000, 15.000 dll
         if ($diskonMember == null) {
             $isDiskon = 0;
             # code...
         } else {
             # code...
-            $isDiskon = $diskonMember->diskon;
+            $isDiskon = 0;
         }
 
         $menuById = Menu::find($id);
@@ -178,8 +180,8 @@ class HomeController extends Controller
         //     $isDiskon = 25000;
         // }
         // dd($isDiskon);
-
-        return view('detail_pesanan', compact('menuById', 'isDiskon'));
+        $pengiriman = Pengiriman::all();
+        return view('detail_pesanan', compact('menuById', 'isDiskon','pengiriman'));
     }
 
     /**

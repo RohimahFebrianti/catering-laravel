@@ -33,6 +33,7 @@ Route::group(['middleware' => 'user'], function() {
     Route::post('/kirim-masukkan/{id}', [HomeController::class, 'kirimMasukkan']);
     Route::get('/profile', [HomeController::class, 'profile']);
     Route::put('/update-profile/{id}', [HomeController::class, 'updateProfile']);
+    Route::post('/check-ongkir', [PengirimanController::class, 'checkOngkir'])->name('check-ongkir');
 
 });
 

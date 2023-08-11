@@ -63,4 +63,13 @@ class PengirimanController extends Controller
     ->success('Data Berhasil disimpan ');
     return redirect('/pengiriman');
    }
+
+   public function checkOngkir()
+   {
+    $pengiriman = Pengiriman::find(request()->id);
+    return response()->json([
+        'data' => $pengiriman ?? 0
+    ]);
+
+   }
 }

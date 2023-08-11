@@ -9,5 +9,5 @@ class JenisLangganan extends Model
 {
     use HasFactory;
     protected $table="jenis_langganan";
-    protected $fillable = ['nama_jenis', 'gambar', 'deskripsi', 'diskon', 'is_member'];
+    protected $fillable = ['nama_jenis', 'gambar', 'deskripsi', 'diskon','nominal', 'is_member'];
 }

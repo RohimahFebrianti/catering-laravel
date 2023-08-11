@@ -33,8 +33,8 @@ class AdminController extends Controller
 
     }
     public function deletePesananUser($id)
-    {   
-       
+    {
+
         $pesanan = Pesanan::find($id);
         // dd($id);
         $pesanan->delete();
@@ -87,6 +87,7 @@ class AdminController extends Controller
         $jenis_langganan = JenisLangganan::find($id);
         $jenis_langganan->nama_jenis = $request->nama_jenis;
         $jenis_langganan->diskon = $request->diskon;
+        $jenis_langganan->nominal = $request->nominal;
         $jenis_langganan->deskripsi = $request->deskripsi;
         if ($request->image == null) {
             $jenis_langganan->gambar = $jenis_langganan->gambar;
@@ -197,13 +198,13 @@ class AdminController extends Controller
         $pesanan = Pesanan::find($id);
         $user = User::find($pesanan->user_id);
 
-       
+
         $alamat = $pesanan->alamat;
         $userPenerima = $user->name;
         // dd($alamat);
         return response()->json(['alamat' => $alamat, 'userPenerima' => $userPenerima]);
 
-    
+
     }
     public function prosesTambah(Request $request)
     {
