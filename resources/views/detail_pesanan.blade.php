@@ -26,9 +26,8 @@
                         </div>
                         <div class="row">
                             <div class="col mb-3">
-                                <label for="inputPassword" class="form-label">Paket</label>
+                                <label for="inputPassword" class="form-label">Paket Langganan</label>
                                 <select name="paket" id="paket_user" class="form-select">
-                                    <option value="">Pilih Paket</option>
                                     <option value="1">1 Hari</option>
                                     <option value="3">3 Hari</option>
                                     <option value="5">5 Hari</option>
@@ -93,6 +92,14 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="container">
+                                <div class="row justify-content-between">
+                                    <div class="col-6">
+                                        <p>Langganan</p>
+                                    </div>
+                                    <div class="col-6" id="langganan" name="langganan">
+                                        <p style="color: grey; font-weight: bold">1 hari</p>
+                                    </div>
+                                </div>
                                 <div class="row justify-content-between">
                                     <div class="col-6">
                                         <p>Subtotal</p>
