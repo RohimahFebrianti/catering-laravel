@@ -16,7 +16,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Banner</th>
-                        <th>Jenis Paket</th>
+                        <th>Jenis Member</th>
                         <th>Minimal Pembelian</th>
                         <th>Diskon</th>
                         <th>Deskripsi</th>

@@ -11,7 +11,11 @@
         <p data-aos="fade-up" data-aos-delay="100">Di sini Anda dapat menemukan berbagai macam masakan Indonesia. Dengan
           rasa yang sangat otentik dan sangat cocok untuk lidah siapapun.</p>
         <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+          @auth
           <a href="/menu" class="btn-pesan-sekarang">Pesan Sekarang</a>
+          @else
+          <a href="javascript:void(0);" onclick="showAlert()" class="btn-pesan-sekarang">Pesan Sekarang</a>
+          @endauth
         </div>
       </div>
       <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
@@ -20,6 +24,11 @@
     </div>
   </div>
 </section><!-- End Hero Section -->
+        <script>
+        function showAlert() {
+            alert("Anda harus login terlebih dahulu.");
+        }
+        </script>
 
 <!-- ======= About Section ======= -->
 <section id="about" class="about">

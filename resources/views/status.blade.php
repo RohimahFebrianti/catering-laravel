@@ -35,9 +35,13 @@
         <div class="col-sm-4">
           <!-- Bagian 2 -->
           <div class="invoice-kepada">
-            <h6>Tanggal Checkout :</h6><br>
-            <h6 class="invoice-kepada">{{$lastCheckout->updated_at}}</h6>
-        </div>
+            @if ($lastCheckout->status == 'proses')
+              <h6>Tanggal Checkout : <span> {{$lastCheckout->created_at}}</span></h6><br>
+            @elseif ($lastCheckout->status == 'kirim')
+              <h6>Tanggal Checkout : <span> {{$lastCheckout->created_at}}</span></h6><br>
+              <h6>Tanggal Kirim : <span> {{$lastCheckout->updated_at}}</span></h6><br>
+            @endif
+          </div>
 
         </div>
         <div class="col-sm-4">
@@ -49,9 +53,6 @@
                     $formattedDate = date("d-m-Y", strtotime($lastCheckout->created_at));
                 @endphp
                 <h6>Tanggal Invoice : {{$formattedDate}}</h6><br>
-            </div>
-            <div class="invoice-kepada">
-                <h6>No. ref : - </h6><br>
             </div>
 
 
@@ -65,7 +66,9 @@
             <th>Deskripsi</th>
             <th>Qty</th>
             <th>Harga Menu</th>
+            <th>Jumlah Hari</th>
             <th>Subtotal</th>
+            <th>Ongkir</th>
             <th>Diskon</th>
             <th>Total</th>
           </tr>
@@ -83,10 +86,13 @@
             <td>{{$data->deskripsi}}</td>
             <td>{{$data->qty}}</td>
             <td>{{$data->harga}}</td>
-            <td style="font-size: 2">Rp. {{number_format($data->harga * $data->qty)}}</td>
+            <td>{{$data->qty_paket}}</td>
+            <td style="font-size: 2">Rp. {{number_format($data->subtotal)}}</td>
+            <td>Rp. {{number_format($data->ongkir)}}</td>
             <td>Rp. {{number_format($data->diskon)}}</td>
+            <td>Rp. {{number_format($data->total)}}</td>
 
-            <td>Rp. {{number_format($data->harga * $data->qty - $data->diskon)}}</td>
+            {{-- <td>Rp. {{number_format($data->harga * $data->qty * $data->qty_paket + * $data->ongkir - $data->diskon)}}</td> --}}
 
         </tr>
         @endforeach

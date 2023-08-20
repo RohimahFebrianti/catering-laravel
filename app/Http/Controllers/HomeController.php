@@ -147,42 +147,31 @@ class HomeController extends Controller
     }
 
     public function detail($id)
-    {
-        //dd($id);
-        // $data = Menu::where('kategori_id', $id)->get();
-        $userId = Auth::user()->id;
-        $cekMember = User::find($userId)->get('is_member');
-        // dapetin diskon dari jenis member di table user
-        //  TABLE user ada is_member. is_member isinya/value nya itu id Jenis langganan
-        $user = Auth::user();
-        $diskonMember = JenisLangganan::find($user->is_member);
+{
+    $userId = Auth::user()->id;
+    $user = User::find($userId);
+    $pesanan = Pesanan::where('user_id', $user->id)->first();
+    $diskonMember = 0; // Default diskon
+    $jenisLangganan = JenisLangganan::find($user->is_member);
 
 
-        // tidak digunakan
-        //diskon => 10000, 15.000 dll
-        if ($diskonMember == null) {
-            $isDiskon = 0;
-            # code...
-        } else {
-            # code...
-            $isDiskon = 0;
-        }
+    if ($jenisLangganan == null) {
+                $diskonMember = 0;
+                # code...
+            } else {
+                # code...
+                $diskonMember = $jenisLangganan->diskon;
+            }
 
-        $menuById = Menu::find($id);
+    $menuById = Menu::find($id);
+    $pengiriman = Pengiriman::all();
+    //dd($diskonMember);
+   //dd($jenisLangganan);
 
-        // if ($cekMember == null) {
-        //     $isDiskon = 0;
-        // } else if ($cekMember = 14) {
-        //     $isDiskon = $;
-        // } else if ($cekMember = 30) {
-        //     $isDiskon = 15000;
-        // } else {
-        //     $isDiskon = 25000;
-        // }
-        // dd($isDiskon);
-        $pengiriman = Pengiriman::all();
-        return view('detail_pesanan', compact('menuById', 'isDiskon','pengiriman'));
-    }
+
+    return view('detail_pesanan', compact('menuById', 'diskonMember', 'pengiriman', 'jenisLangganan'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -210,7 +199,9 @@ class HomeController extends Controller
         $alamat = $request->alamat;
         $harga = $request->harga;
         $qty = $request->quantity;
+        $qty_paket = $request->qty_paket;
         $subtotal = $request->subtotal;
+        $ongkir = $request->ongkir;
         $diskon = $request->diskon;
         $total = $request->total;
         $deskripsi = Menu::find($request->menu_id);
@@ -226,8 +217,10 @@ class HomeController extends Controller
         $pesanan->deskripsi = $deskripsi->deskripsi;
         $pesanan->harga = $harga;
         $pesanan->qty = $qty;
+        $pesanan->qty_paket = $qty_paket;
         $pesanan->alamat = $alamat;
         $pesanan->subtotal = $subtotal;
+        $pesanan->ongkir = $ongkir;
         $pesanan->diskon = $diskon;
         $pesanan->total = $total;
         $pesanan->created_at = $tanggal;

@@ -24,9 +24,11 @@
                   <th>Nama Menu</th>
                   <th>No. Faktur</th>
                   <th>Kategori</th>
-                  <th>Qty</th>
                   <th>Harga</th>
+                  <th>Qty</th>
+                  <th>Subtotal</th>
                   <th>Diskon</th>
+                  <th>Ongkir</th>
                   <th>Total</th>
                   <th>Status</th>
                   <th>Aksi</th>
@@ -44,10 +46,12 @@
                   <td>{{ $data->nama_menu }}</td>
                   <td>{{ $data->no_pesanan }}</td>
                   <td>{{ $data->kategori->kategori }}</td>
-                  <td>{{ $data->qty }} Pcs</td>
                   <td>Rp. {{ number_format($data->harga) }}</td>
+                  <td>{{ $data->qty }} Pcs</td>
+                  <td>Rp. {{ number_format($data->subtotal) }}</td>
                   <td>Rp. {{ number_format($data->diskon) }}</td>
-                  <td>Rp. {{ number_format($data->harga * $data->qty - $data->diskon) }}</td>
+                  <td>Rp. {{ number_format($data->ongkir) }}</td>
+                  <td>Rp. {{ number_format($data->total) }}</td>
                   <td>{{ $data->status == 'proses' ? "On progress" : "Diantar" }}</td>
                   <td>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#confirmationModal" onclick="setConfirmationModalData('{{ $data->id }}')">
@@ -155,13 +159,6 @@
 
     
     }
-  
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   const mId = document.getElementById('idNya');
-    //   const dataName = mId.innerHTML.trim();
-    //   const linkElement = document.querySelector('.btn-success a');
-    //   linkElement.href = "delete-pesanan-user/" + dataName;
-    // });
 </script>
 @endif
 @endsection

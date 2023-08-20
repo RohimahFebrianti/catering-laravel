@@ -24,7 +24,7 @@ class AdminController extends Controller
         $total = Pesanan::sum('total');
         $uang_angka = preg_replace("/[^0-9]/", "", $total);
 
-        $total_pemasukan = number_format($uang_angka / 100, 2);
+        $total_pemasukan = number_format($uang_angka);
         $total_menu = Menu::count();
         $feedback = FeedbackModel::count();
         $total_member = User::whereNotNull('is_member')->count();
@@ -49,8 +49,8 @@ class AdminController extends Controller
         $total_pemasukan = Pesanan::sum('total');
         $total_menu = Menu::count();
         $feedback = FeedbackModel::count();
-        $total_member = User::whereNotNull('is_member')->count();
-        // dd($total_member);
+       $total_member = User::whereNotNull('is_member')->count();
+
         return view('admin.dashboard', compact('total_pemasukan', 'total_menu', 'feedback', 'total_member'));
     }
     public function allMenu()

@@ -41,8 +41,10 @@
                     <td>{{$data->deskripsi}}</td>
                     <td>Rp. {{number_format($data->harga)}}</td>
                     <td> <a href="editMenu/{{$data->id}}"><i style="color: green" class="fa fa-edit"></i></a>
-                        <a href="javascript:;void(0)" data-bs-toggle="modal" data-bs-target="#confirmationModalHapus" onclick="setConfirmationModalDataHapus('{{ $data->id }}')" ><i style="color: red" class="fa fa-trash"></i></a>
-
+                        {{-- <a href="javascript:;void(0)" data-bs-toggle="modal" data-bs-target="#confirmationModalHapus" onclick="setConfirmationModalDataHapus('{{ $data->id }}')" ><i style="color: red" class="fa fa-trash"></i></a> --}}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#confirmationModalHapus" onclick="setConfirmationModalDataHapus('{{ $data->id }}')">
+                          <i id="deleteLink" style="color: red" class="fa fa-trash"></i>
+                        </a>
                 </tr>
                 @endforeach
 
@@ -87,17 +89,3 @@
     }
   </script>
 @stop
-{{-- @push('after-script')
-<script>
-    function setConfirmationModalDataHapus(dataName) {
-      const formElement = document.getElementById('hapusForm');
-      formElement.action = "{{ url('delete/') }}/" + dataName;
-
-
-      const modalTextElement = document.getElementById('confirmationModalTextHapus');
-      modalTextElement.innerHTML = `Anda Yakin Akan Menghapus Data <strong>${dataName}</strong> ?.`;
-
-    
-    }
-  </script>
-@endpush --}}

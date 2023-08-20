@@ -17,13 +17,25 @@
                         <img src="{{asset($paket->gambar)}}" class="img-fluid" alt="">
                     </div>
                     <div class="member-info">
-                        <h4>Diskon Rp. {{$paket->diskon}}</h4>
+                        <h6>Harga Member:</h6>
+                        <h4>
+                            Rp. {{$paket->nominal}}
+                        </h4>
                         <p>{{$paket->deskripsi}}</p>
                     </div>
                     <div class="d-flex justify-content-center mb-4" data-aos="fade-up" data-aos-delay="200">
-                        <button style="color: white; background-color:coral; padding:4px; border-radius:8px"
-                            href="#detail/{{$paket->id}}" data-id="{{$paket->id}}" onclick="showDialog()"
-                            class="show-alert-delete-box">Join Langganan</button>
+                        @auth
+                        @if (auth()->user()->is_member == $paket->id)
+                                <p class="member-status">Anda adalah anggota Member {{$paket->nama_jenis}}.</p>
+                        @else
+                            <button style="color: white; background-color:coral; padding:4px; border-radius:8px"
+                                href="#detail/{{$paket->id}}" data-id="{{$paket->id}}" onclick="showDialog()"
+                                class="show-alert-delete-box">Join Langganan</button>
+                        @endif
+                    @else
+                        <p>Harap login untuk bergabung dengan langganan.</p>
+                    @endauth
+
                     </div>
                 </div>
             </div><!-- End Chefs Member -->
@@ -66,17 +78,32 @@
                     idPaket:id
                 },
                 success: function(response) {
-                    // Berhasil, lakukan sesuatu (misalnya tampilkan pesan sukses)
-                    // window.location.href=document.referrer;
-                    window.location.href = '/jenis';
-                },
-                error: function(xhr) {
-                    // Terjadi kesalahan, lakukan sesuatu (misalnya tampilkan pesan error)
-                }
-            });
-        }
-        });
-});
-</script>
 
+                    var whatsappUrl =
+                        'https://wa.me/6285864438047?text=Saya%20ingin%20memesan ' +
+                        encodeURIComponent("{{ $paket->nama_jenis }}");
+                    window.location.href = whatsappUrl;
+                    localStorage.setItem('pesanSukses', 'Pesan SUKSES ditampilkan!');
+
+                    var pesanSukses = localStorage.getItem('pesanSukses');
+                    console.log("ok");
+                    },
+                    error: function(xhr) {}
+                });
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+            // Periksa apakah ada pesan SUKSES dalam localStorage
+            var pesanSukses = localStorage.getItem('pesanSukses');
+
+            if (pesanSukses) {
+                // Jika ada pesan SUKSES, tampilkan pesan tersebut di halaman destinasi
+                window.location.href = '/jenis';
+
+                // Setelah menampilkan pesan, hapus data dari localStorage agar tidak ditampilkan kembali ketika halaman dimuat kembali
+                localStorage.removeItem('pesanSukses');
+            }
+        });
+</script>
 @endsection

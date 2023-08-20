@@ -1,22 +1,41 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
+        @auth
         <a href="/dashboard" class="logo d-flex align-items-center me-auto me-lg-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1>Viima Catering</span></h1>
         </a>
+        @else
+        <a class="logo d-flex align-items-center me-auto me-lg-0 disabled-link">
+            <h1>Viima Catering</span></h1>
+        </a>
+        @endauth
 
         <nav id="navbar" class="navbar">
             <ul>
+                @auth
                 <li><a href="/dashboard">Beranda</a></li>
                 <li><a href="/menu">Menu</a></li>
                 <li><a href="/jenis">Jenis Langganan</a></li>
                 <li><a href="/contact">Kontak</a></li>
                 <li><a href="/status">Status Riwayat</a></li>
-                </li>
+                @else
+                <li><a href="javascript:void(0);" onclick="showAlert()">Beranda</a></li>
+                <li><a href="javascript:void(0);" onclick="showAlert()">Menu</a></li>
+                <li><a href="javascript:void(0);" onclick="showAlert()">Jenis Langganan</a></li>
+                <li><a href="javascript:void(0);" onclick="showAlert()">Kontak</a></li>
+                <li><a href="javascript:void(0);" onclick="showAlert()">Status Riwayat</a></li>
+                @endauth
             </ul>
         </nav><!-- .navbar -->
+        
+        <script>
+        function showAlert() {
+            alert("Anda harus login terlebih dahulu.");
+        }
+        </script>
+        
         @if (Route::has('login'))
             {{-- <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10"> --}}
             @auth

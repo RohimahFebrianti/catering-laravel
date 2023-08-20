@@ -16,7 +16,7 @@
 
                 <div class="form-group row">
                     <div class="col-md-6 mb-3">
-                        <label for="nama_menu">Jenis Paket</label>
+                        <label for="nama_menu">Jenis Member</label>
                         <input type="text" name="nama_jenis" class="form-control" id="exampleFirstName"
                             placeholder="Nama Menu" value="{{ $jenisLangganan->nama_jenis }}">
                     </div>

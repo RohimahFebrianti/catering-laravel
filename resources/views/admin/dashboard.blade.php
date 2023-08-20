@@ -90,13 +90,12 @@
                         <div class="col mr-2">
                             <a href="/data-user"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Total Member</div></a>
-
-<a href="/data-user">
-
-    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$total_member}}</div>
-</a>                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                <a href="/data-user">
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$total_member}}</div>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -104,42 +103,76 @@
         </div>
     </div>
 
-    <!-- Content Row -->
+    
 
     <div class="row">
-
-        <!-- Area Chart -->
-        <div class="col-xl-12 col-lg-7">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Terrafict  Pemasukan</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+        <!-- Card -->
+        <div class="col-xl-6 mb-4">
+            <div class="card shadow h-100 py-2 d-flex justify-content-center align-items-center">
+                <div class="card-body text-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik</h6>
+                    <div>
+                        <canvas id="summaryChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-
-
+        <div class="col-xl-6 mb-4">
+            <div class="card shadow h-100 py-2 d-flex justify-content-center align-items-center">
+                <div class="card-body text-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik</h6>
+                    <div>
+                        <canvas id="summaryChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Data dari PHP
+    var totalPemasukan =  parseInt({{$total_pemasukan}});
+    var totalMenu = {{$total_menu}};
+
+    // Menggambar grafik lingkaran
+    var summaryChart = new Chart(document.getElementById('summaryChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Pemasukan', 'Menu'],
+            datasets: [{
+                data: [totalPemasukan,  totalMenu,],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                ]
+            }]
+        }
+    });
+
+</script>
+<script>
+    // Data dari PHP
+    var totalMember = {{$total_member}};
+    var totalFeedback = {{$feedback}};
+
+    // Menggambar grafik lingkaran
+    var summaryChart2 = new Chart(document.getElementById('summaryChart2'), {
+        type: 'pie',
+        data: {
+            labels: ['Feedback','Member'],
+            datasets: [{
+                data: [totalFeedback,  totalMember,],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(255, 206, 86, 0.5)'
+                ]
+            }]
+        }
+    });
+
+</script>
 @stop
